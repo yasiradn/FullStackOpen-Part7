@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { BrowserRouter as Router, Switch, Route, Link, useParams } from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, Link, useParams, Redirect } from "react-router-dom"
 
 const Menu = () => {
   const padding = {
@@ -51,6 +51,17 @@ const About = () => (
     <p>Software engineering is full of excellent anecdotes, at this app you can find the best and add more.</p>
   </div>
 )
+
+const Notification = ({notification}) => {
+  const style = {
+    'border': 'red solid 2px'
+  }
+  return (
+    <div style={style}>
+      {notification}
+    </div>
+  )
+}
 
 const Footer = () => (
   <div>
@@ -118,10 +129,14 @@ const App = () => {
   ])
 
   const [notification, setNotification] = useState('')
-
+  
   const addNew = (anecdote) => {
     anecdote.id = (Math.random() * 10000).toFixed(0)
     setAnecdotes(anecdotes.concat(anecdote))
+    setNotification(`a new anecdote ${anecdote.content} created!`)
+    setTimeout(() => {
+			setNotification('')
+		}, 10000)
   }
 
   const anecdoteById = (id) =>
@@ -137,16 +152,19 @@ const App = () => {
 
     setAnecdotes(anecdotes.map(a => a.id === id ? voted : a))
   }
-
+  const showNotification = notification === '' ? '': <Notification notification={notification}/>
   return (
       <Router>
         <h1>Software anecdotes</h1>
         <Menu/>
+        {showNotification}
         <Switch>
-          <Route path ="/anecdote/:id"><Anecdote anecdotes={anecdotes}/><Footer/></Route>
-          <Route path = "/create"><CreateNew addNew={addNew}/><Footer/></Route>
-          <Route path = "/"><AnecdoteList anecdotes={anecdotes}/><Footer/></Route>
+          <Route path ="/anecdote/:id"><Anecdote anecdotes={anecdotes}/></Route>
+          <Route path = "/create">{notification === ''? <CreateNew addNew={addNew}/>: <Redirect to="/"/>}</Route>
+          <Route path = "/"><AnecdoteList anecdotes={anecdotes}/></Route>
         </Switch>
+        <br/>
+        <Footer/>
       </Router>
   )
 }
