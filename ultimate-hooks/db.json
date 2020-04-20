@@ -1,0 +1,46 @@
+{
+  "notes": [
+    {
+      "content": "custom-hookit aivan mahtavia",
+      "id": 1
+    },
+    {
+      "content": "paras feature ikinä <3",
+      "id": 2
+    },
+    {
+      "content": "Test Notes",
+      "id": 3
+    },
+    {
+      "content": "LOL test",
+      "id": 4
+    },
+    {
+      "content": "This is a post",
+      "id": 5
+    }
+  ],
+  "persons": [
+    {
+      "name": "mluukkai",
+      "number": "040-5483923",
+      "id": 1
+    },
+    {
+      "name": "Hello World",
+      "number": "Jhon Doe",
+      "id": 2
+    },
+    {
+      "name": "Hello World",
+      "number": "Jhon Doe",
+      "id": 3
+    },
+    {
+      "name": "Hello Wrold",
+      "number": "04980872",
+      "id": 4
+    }
+  ]
+}
