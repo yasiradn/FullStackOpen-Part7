@@ -18,14 +18,5 @@ export const fetchUsers = () => {
         })
     }
   }
-
-  export const LoggedIn = (userobject) => {
-    return dispatch => {
-      dispatch({
-          type:'LOGGED_IN',
-          data: userobject
-        })
-    }
-  }  
   
   export default userReducers

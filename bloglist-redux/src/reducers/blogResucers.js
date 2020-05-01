@@ -9,6 +9,8 @@ const blogReducers = (state=[],action) => {
         case 'DELETE_BLOG':
             console.log('delete', action.data)
            return state.filter(post=> post.id =! action.data.id)
+        case 'ADD_BLOG':
+           return [...state, action.data]
        default:
            return state;
    }
@@ -39,6 +41,16 @@ export const deleteBlog =  (blog) => {
         await blogService.deleteBlog(blog.id)
         dispatch({
             type: 'DELETE_BLOG',
+            data:blog
+        })
+    }
+}
+
+export const addNewBlog =  (blog) => {
+    return async dispatch => {
+        await blogService.postAll(blog)
+        dispatch({
+            type: 'ADD_BLOG',
             data:blog
         })
     }

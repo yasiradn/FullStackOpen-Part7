@@ -1,34 +1,26 @@
 import React, { useState, useEffect} from 'react'
 import loginService from '../services/login'
-import blogService from '../services/blogs'
 import {LoggedIn} from '../reducers/loginReducer'
 import { useDispatch} from 'react-redux'
-const Login = (props) => {
-    
+const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [user, setUser] = useState(null)
   const dispatch = useDispatch()
   useEffect(() => {
     const getLoggedUser = window.localStorage.getItem('BlogAppUser')
     if(getLoggedUser){
       const user = JSON.parse(getLoggedUser)
-      blogService.setToken(user.token)
-      setUser(user)
       dispatch(LoggedIn(user))
     }
   },[])
-
   const handleLogin = async(e) => {
     e.preventDefault()
     console.log(`Loggin using ${username} ${password}`)
     try {
       const user = await loginService.login({
         username, password
-      })
+      })//TODO: Dispatch to Login
       window.localStorage.setItem('BlogAppUser', JSON.stringify(user))
-      blogService.setToken(user.token)
-      setUser(user)
       dispatch(LoggedIn(user))
       setUsername('')
       setPassword('')
